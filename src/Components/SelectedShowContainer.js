@@ -8,8 +8,9 @@ class SelectedShowContainer extends Component {
 
   mapSeasons = () => {
     if (!!this.props.episodes) {
-      let seasons = this.props.episodes.map(e => e.season).unique();
-      return seasons.map(season => {
+      let seasonsArray = this.props.episodes.map(episode => episode.season);
+      let uniqueSeasons = this.unique(seasonsArray);
+      return uniqueSeasons.map(season => {
         return (
           <option value={season} key={season}>
             Season {season}
@@ -20,13 +21,22 @@ class SelectedShowContainer extends Component {
   };
 
   mapEpisodes = () => {
-    console.log(this.state.selectedSeason);
     return this.props.episodes.map(episode => {
       if (episode.season === this.state.selectedSeason) {
         return <Episode episode={episode} key={episode.id} />;
       }
       return null;
     });
+  };
+
+  unique = array => {
+    let uniqueArray = [];
+    for (let i of array) {
+      if (!uniqueArray.includes(i)) {
+        uniqueArray.push(i);
+      }
+    }
+    return uniqueArray;
   };
 
   handleSelectionChange = e => {
@@ -56,13 +66,3 @@ class SelectedShowContainer extends Component {
 }
 
 export default SelectedShowContainer;
-// eslint-disable-next-line no-extend-native
-Array.prototype.unique = function() {
-  var arr = [];
-  for (var i = 0; i < this.length; i++) {
-    if (!arr.includes(this[i])) {
-      arr.push(this[i]);
-    }
-  }
-  return arr;
-};

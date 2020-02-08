@@ -33,7 +33,6 @@ class TVShowList extends Component {
   };
 
   mapAllShows = () => {
-    console.log(this.props.shows);
     if (!!this.props.searchTerm) {
       return this.props.shows.map(show => {
         if (show.name.toLowerCase().includes(this.props.searchTerm)) {
